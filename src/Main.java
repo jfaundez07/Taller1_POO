@@ -69,7 +69,7 @@ public class Main {
 
     public static void mostrarFila (int matriz[][], int fila){
 
-        for(int j=0; j < matriz.length; j ++) {
+        for(int j=0; j < matriz[fila].length; j ++) {
             System.out.print(matriz[fila][j] + " ");
         }
     }
