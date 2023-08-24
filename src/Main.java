@@ -1,10 +1,13 @@
-import java.sql.PseudoColumnUsage;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
+    private static int[][] matriz;
+
     public static void main(String[] args) {
+
        menu();
     }
 
@@ -36,7 +39,7 @@ public class Main {
 
     public static int[][] crearMatriz(int Filas, int Columnas) {
 
-        int[][] matriz = new int[Filas][Columnas];
+        matriz = new int[Filas][Columnas];
 
         return matriz;
     }
@@ -66,8 +69,8 @@ public class Main {
 
     public static void mostrarFila (int matriz[][], int fila){
 
-        for(int i=0; i < matriz.length; i ++) {
-            System.out.println(matriz[fila][i] + " ");
+        for(int j=0; j < matriz.length; j ++) {
+            System.out.print(matriz[fila][j] + " ");
         }
     }
 
@@ -97,21 +100,57 @@ public class Main {
         return (esMatrizCero);
     }
 
-    public static void menu(){
-        System.out.println("Bienvenido! Que desea realizar?");
+    public static void opcionesMenu() {
+        System.out.println("\nBienvenido! Que desea realizar?");
         System.out.println("[0] Salir\n" +
-                "[1] Crear la matriz" +
-                "[2] Rellenar la matriz" +
-                "[3] Mostrar la matriz" +
-                "[4] Mostrar una fila seleccionada" +
-                "[5] Matriz Cero" );
+                "[1] Crear y rellenar la matriz\n" +
+                "[2] Mostrar la matriz\n" +
+                "[3] Mostrar una fila seleccionada\n" +
+                "[4] Matriz Cero\n");
+        System.out.println("Respuesta: ");
+    }
 
-        //menu();
-        //int Filas = ingresarNumero();
-        //int Columnas = ingresarNumero();
-        //int [][] matriz = crearMatriz(Filas, Columnas);
-        //llenarMatriz(matriz);
-        //mostrarMatriz(matriz);
-        //System.out.println(matrizCero(matriz, Filas, Columnas));
+    public static void menu(){
+
+        boolean continuar = true;
+        while (continuar) {
+            opcionesMenu();
+            Scanner Leer = new Scanner(System.in);
+            int seleccion = Leer.nextInt();
+
+            if (seleccion == 0) {
+                continuar = false;
+            }
+
+            if (seleccion == 1) {
+                int Filas = ingresarNumero();
+                while (validarNumero(Filas) != true) {
+                    Filas = ingresarNumero();
+                }
+                int Columnas = ingresarNumero();
+                while (validarNumero(Columnas) != true) {
+                    Columnas = ingresarNumero();
+                }
+                int[][] matriz = crearMatriz(Filas, Columnas);
+                llenarMatriz(matriz);
+
+            }
+
+            if (seleccion == 2) {
+                mostrarMatriz(matriz);
+            }
+
+            if (seleccion == 3) {
+                System.out.println("Ingrese el numero de la fila:");
+                int Fila = Leer.nextInt();
+                mostrarFila(matriz, Fila);
+            }
+
+            if (seleccion == 4) {
+                System.out.println(matrizCero(matriz, matriz.length, matriz[0].length ));
+            }
+
+        }
+
     }
 }
